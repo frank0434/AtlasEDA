@@ -133,10 +133,12 @@ get_table <- function(connection = get_connected(), table = "Variable"){
 #' @seealso \code{\link{get_table}}
 #' @import data.table
 #'         DBI
-#' @return
+#' @return A data.table and a file saved in the path
 #' @export
 #'
 #' @examples
+#' get_data()
+#'
 get_data <- function(variables = NULL, dbconnection = connection, path = Sys.getenv("path")){
   ## Get all the whole Simulation table
   if(isTRUE(is.null(variables))){
@@ -174,14 +176,19 @@ get_data <- function(variables = NULL, dbconnection = connection, path = Sys.get
 #' @description Experimenting. Might not necessary. Plot box_plot for all
 #'  variables in the \strong{Variable} table by the value group.
 #'
-#' @param plot_var
-#' @param group_var
-#' @param DT
+#' @param plot_var A character vector that has the variables for y axis
+#' @param group_var A character vector that has the variables for x axis -
+#'   grouping variable
+#' @param DT A data.table.
 #'
-#' @return
+#' @import ggplot2
+#'         data.table
+#'
+#' @return \eqn{plot_var * group_var} ggplot objects
 #' @export
 #'
 #' @examples
+#' get_graph(DT, plot_var, group_var)
 get_graph <- function(DT, plot_var, group_var){
   if(data.table::is.data.table(DT)){
     for (i in plot_var) {

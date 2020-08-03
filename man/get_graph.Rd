@@ -7,12 +7,20 @@
 get_graph(DT, plot_var, group_var)
 }
 \arguments{
-\item{DT}{}
+\item{DT}{A data.table.}
+
+\item{plot_var}{A character vector that has the variables for y axis}
+
+\item{group_var}{A character vector that has the variables for x axis -
+grouping variable}
 }
 \value{
-
+\eqn{plot_var * group_var} ggplot objects
 }
 \description{
 Experimenting. Might not necessary. Plot box_plot for all
  variables in the \strong{Variable} table by the value group.
+}
+\examples{
+get_graph(DT, plot_var, group_var)
 }

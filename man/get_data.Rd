@@ -21,12 +21,16 @@ retrieve the entire \strong{Simulation} table. See details for constructing
 \item{path}{A character string to show where to save the retrieved data.}
 }
 \value{
-
+A data.table and a file saved in the path
 }
 \description{
 Retrieve selected/filtered data from the \strong{Simulation}
  table. The retrieved data will be saved in the project folder in a
  \strong{RDS} format.
+}
+\examples{
+get_data()
+
 }
 \seealso{
 \code{\link{get_table}}
