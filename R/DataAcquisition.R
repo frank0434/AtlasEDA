@@ -160,12 +160,12 @@ get_data <- function(variables = NULL, dbconnection = connection, path = Sys.get
     sql_updated = paste(sql, paste(querylist, collapse = "AND"))
     dt = data.table::as.data.table(dbGetQuery(get_connected(), sql_updated))
 
-    dir_temp_data = paste0(path, "Temp_Data")
+    dir_temp_data = paste0(path, "/Temp_Data")
     if(dir.exists(dir_temp_data)){
-      saveRDS(dt, file = paste0(path,"Temp_Data/temp.RDS"))
+      saveRDS(dt, file = paste0(path,"/Temp_Data/temp.RDS"))
     } else{
       dir.create(dir_temp_data)
-      saveRDS(dt, file = paste0(path,"Temp_Data/temp.RDS"))
+      saveRDS(dt, file = paste0(path,"/Temp_Data/temp.RDS"))
     }
     return(dt)
   }
