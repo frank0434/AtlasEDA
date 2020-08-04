@@ -17,7 +17,7 @@
 #' get_connected()
 get_connected <- function(projectName = Sys.getenv("projectName"), credspath = Sys.getenv("secret_path")){
   source(credspath)
-  dbcreds = get(grep(projectName, ls(envir = .GlobalEnv), value = TRUE))
+  dbcreds = get(projectName)
   connection = DBI::dbConnect(RPostgreSQL::PostgreSQL(),
                               dbname = dbcreds$dbname,
                               host = dbcreds$host,
@@ -142,7 +142,8 @@ get_table <- function(connection = get_connected(), table = "Variable"){
 get_data <- function(variables = NULL, dbconnection = connection, path = Sys.getenv("path")){
   ## Get all the whole Simulation table
   if(isTRUE(is.null(variables))){
-    dt = data.table::as.data.table(DBI::dbReadTable(conn = connection, "Simulation"))
+    dt = data.table::as.data.table(DBI::dbReadTable(conn = dbconnection, "Simulation"))
+
   } else if(isFALSE(is.list(variables))| is.null(names(variables))){
     print("variables must be a named list.")
   } else {
@@ -158,17 +159,18 @@ get_data <- function(variables = NULL, dbconnection = connection, path = Sys.get
 
     }
     sql_updated = paste(sql, paste(querylist, collapse = "AND"))
-    dt = data.table::as.data.table(dbGetQuery(get_connected(), sql_updated))
+    dt = data.table::as.data.table(DBI::dbGetQuery(conn = dbconnection, sql_updated))
 
-    dir_temp_data = paste0(path, "/Temp_Data")
-    if(dir.exists(dir_temp_data)){
-      saveRDS(dt, file = paste0(path,"/Temp_Data/temp.RDS"))
+    }
+  dir_temp_data = paste0(path, "/Temp_Data")
+  if(dir.exists(dir_temp_data)){
+    saveRDS(dt, file = paste0(path,"/Temp_Data/temp.RDS"))
     } else{
       dir.create(dir_temp_data)
       saveRDS(dt, file = paste0(path,"/Temp_Data/temp.RDS"))
     }
     return(dt)
-  }
+
 }
 
 #' get_graph
