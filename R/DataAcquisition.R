@@ -112,7 +112,7 @@ get_info <- function(projectName = Sys.getenv("projectName"), dbconnection = con
 #' @examples
 #' get_table(get_connected(), table = "Variable")
 get_table <- function(connection = get_connected(), table = "Variable"){
-  tab = dbReadTable(connection, "Variable")
+  tab = dbReadTable(connection, table)
   tab = data.table::as.data.table(tab)
   return(tab)
 }
