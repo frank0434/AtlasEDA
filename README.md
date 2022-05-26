@@ -3,7 +3,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of AtlasEDA is to ...
+The goal of AtlasEDA is to do exploratory data analysis for the ATLAS project. 
 
 ## Installation
 
